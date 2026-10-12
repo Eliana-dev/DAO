@@ -1,0 +1,19 @@
+[ { 
+  "id" : 1,
+  "nombre" : "Lionel Messi",
+  "posicion" : "Delantero",
+  "edad" : 39,
+  "equipo" : "Inter Miami"
+}, {
+  "id" : 2,
+  "nombre" : "Kylian Mbappé",
+  "posicion" : "Delantero",
+  "edad" : 27,
+  "equipo" : "Real Madird"
+}, {
+  "id" : 3,
+  "nombre" : "Cristiano Ronaldo",
+  "posicion" : "Delantero",
+  "edad" : 41,
+  "equipo" : "AI-Nassr FC"
+}]
