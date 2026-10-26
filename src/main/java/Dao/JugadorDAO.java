@@ -47,4 +47,19 @@ public class JugadorDAO {
         jugadores.add(jugador);
         save(jugadores);
     }
+    public void update(int index, Jugador jugadorActualizado) throws IOException {
+    List<Jugador> jugadores = display();
+    if (index >= 0 && index < jugadores.size()) {
+        jugadores.set(index, jugadorActualizado);
+        save(jugadores);
+    }
+    }
+    public void delete(int index) throws IOException {  //Eliminar por index
+    List<Jugador> jugadores = display();
+    if (index >= 0 && index < jugadores.size()) {
+        jugadores.remove(index);
+        save(jugadores); //
+    }
+}
+    
 }

@@ -4,6 +4,8 @@
  */
 package View;
 
+import Service.JugadorService;
+
 /**
  *
  * @author eliana
@@ -13,8 +15,15 @@ public class Display extends javax.swing.JPanel {
     /**
      * Creates new form Display
      */
+    private JugadorService s;
+            
     public Display() {
-        initComponents();
+        initComponents();  
+    }
+    
+    public void setJugadorService(JugadorService s){
+        this.s = s;  
+        this.s.cargarTabla(jTable1); 
     }
 
     /**
@@ -30,6 +39,7 @@ public class Display extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         Delete = new javax.swing.JButton();
         Update = new javax.swing.JButton();
+        refresh = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(660, 400));
 
@@ -44,8 +54,25 @@ public class Display extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         Delete.setText("Delete");
+        Delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteActionPerformed(evt);
+            }
+        });
 
         Update.setText("Update");
+        Update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateActionPerformed(evt);
+            }
+        });
+
+        refresh.setText("Refresh");
+        refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -57,6 +84,8 @@ public class Display extends javax.swing.JPanel {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(refresh)
+                .addGap(18, 18, 18)
                 .addComponent(Update)
                 .addGap(18, 18, 18)
                 .addComponent(Delete)
@@ -70,10 +99,26 @@ public class Display extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Delete)
-                    .addComponent(Update))
+                    .addComponent(Update)
+                    .addComponent(refresh))
                 .addGap(18, 18, 18))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteActionPerformed
+        // TODO add your handling code here:
+        s.processDelete(jTable1);
+    }//GEN-LAST:event_DeleteActionPerformed
+
+    private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
+        // TODO add your handling code here:
+        s.processUpdate(jTable1);
+    }//GEN-LAST:event_UpdateActionPerformed
+
+    private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
+        // TODO add your handling code here:
+        s.refresh(jTable1);
+    }//GEN-LAST:event_refreshActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -81,5 +126,6 @@ public class Display extends javax.swing.JPanel {
     private javax.swing.JButton Update;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton refresh;
     // End of variables declaration//GEN-END:variables
 }

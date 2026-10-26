@@ -4,6 +4,7 @@
  */
 package View;
 
+import Service.JugadorService;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
@@ -16,9 +17,23 @@ public class Root extends javax.swing.JFrame {
     /**
      * Creates new form Root
      */
+    private JugadorService s = new JugadorService();
+    
+    private Search panelSearch;
+    private Create panelCreate;
+    private Display panelDisplay;
+    
     public Root() {
         initComponents();
         this.setLocationRelativeTo(null);
+        panelSearch = new Search();
+        panelSearch.setJugadorService(this.s);
+
+        panelCreate = new Create();
+        panelCreate.setJugadorService(this.s);
+
+        panelDisplay = new Display();
+        panelDisplay.setJugadorService(this.s);
     }
     private void ShowPanel(JPanel p){
         p.setSize(660, 400);
@@ -44,7 +59,6 @@ public class Root extends javax.swing.JFrame {
         Search = new javax.swing.JButton();
         Create = new javax.swing.JButton();
         Exit = new javax.swing.JButton();
-        Refresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,37 +106,32 @@ public class Root extends javax.swing.JFrame {
             }
         });
 
-        Refresh.setText("Refresh");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(Exit)
-                                .addGap(16, 16, 16))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(301, 301, 301))))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(Display)
-                .addGap(74, 74, 74)
-                .addComponent(Search)
-                .addGap(77, 77, 77)
-                .addComponent(Create)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Refresh)
-                .addGap(33, 33, 33))
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(Display)
+                        .addGap(93, 93, 93)
+                        .addComponent(Search)
+                        .addGap(94, 94, 94)
+                        .addComponent(Create)
+                        .addGap(114, 114, 114))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(Exit)
+                        .addGap(24, 24, 24))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,13 +142,12 @@ public class Root extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Display)
                     .addComponent(Search)
-                    .addComponent(Create)
-                    .addComponent(Refresh))
+                    .addComponent(Create))
                 .addGap(18, 18, 18)
                 .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Exit)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
@@ -147,24 +155,22 @@ public class Root extends javax.swing.JFrame {
 
     private void SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchActionPerformed
         // TODO add your handling code here:
-        Search s = new Search();
-        ShowPanel(s);
+        ShowPanel(panelSearch);
     }//GEN-LAST:event_SearchActionPerformed
 
     private void DisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisplayActionPerformed
         // TODO add your handling code here:
-        Display d = new Display();
-        ShowPanel(d);
+        ShowPanel(panelDisplay);
     }//GEN-LAST:event_DisplayActionPerformed
 
     private void CreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateActionPerformed
         // TODO add your handling code here:
-        Create c = new Create();
-        ShowPanel(c);
+        ShowPanel(panelCreate);
     }//GEN-LAST:event_CreateActionPerformed
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
         // TODO add your handling code here:
+        s.processExit();
     }//GEN-LAST:event_ExitActionPerformed
 
     /**
@@ -181,16 +187,24 @@ public class Root extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Root.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Root.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Root.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Root.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Root.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Root.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Root.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Root.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -206,7 +220,6 @@ public class Root extends javax.swing.JFrame {
     private javax.swing.JButton Create;
     private javax.swing.JButton Display;
     private javax.swing.JButton Exit;
-    private javax.swing.JButton Refresh;
     private javax.swing.JButton Search;
     private javax.swing.JPanel content;
     private javax.swing.JLabel jLabel1;
